@@ -1,15 +1,4 @@
-import React from "react";
-import { View, Text, SafeAreaView, StyleSheet, Button } from "react-native";
-import { useTheme } from "@react-navigation/native";
-
-export default function Cientifica() {
-  const { colors } = useTheme();
-
-  return (
-    <View>
-      <Text style={{color: colors.text}}>Calculadora Cientifica</Text>
-=======
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -18,10 +7,19 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import InputNumbreButton from "../componets/InputNumbreButton";
+import { useTheme } from "@react-navigation/native";
 
 export default function Cientifica() {
   const [darkMode, setDarkMode] = useState(false);
+  const theme = useTheme();
+
+  useEffect(() => {
+    if (theme.dark) {
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+  }, [theme]);
   const buttons = [
     "cos",
     "sen",

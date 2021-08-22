@@ -1,8 +1,23 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from "@react-navigation/native";
-import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme } from 'react-native-paper'
+import {
+  NavigationContainer,
+  DefaultTheme as NavigationDefaultTheme,
+  DarkTheme as NavigationDarkTheme,
+} from "@react-navigation/native";
+import {
+  Provider as PaperProvider,
+  DefaultTheme as PaperDefaultTheme,
+  DarkTheme as PaperDarkTheme,
+} from "react-native-paper";
 import { DrawerContent } from "./DrawerContent";
 import { AuthContext } from "./context";
 import HomeScreen from "../screens/HomeScreen";
@@ -27,10 +42,10 @@ export default function Navigation() {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const authContext = React.useMemo(() => ({
-    toggleTheme: () =>{
-      setIsDarkTheme(isDarkTheme => !isDarkTheme)
-    }
-  }))
+    toggleTheme: () => {
+      setIsDarkTheme((isDarkTheme) => !isDarkTheme);
+    },
+  }));
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -38,10 +53,10 @@ export default function Navigation() {
     colors: {
       ...NavigationDefaultTheme.colors,
       ...PaperDefaultTheme.colors,
-      background: '#fff',
-      text: '#333',
-    }
-  }
+      background: "#fff",
+      text: "#333",
+    },
+  };
 
   const CustomDarkTheme = {
     ...NavigationDarkTheme,
@@ -49,10 +64,10 @@ export default function Navigation() {
     colors: {
       ...NavigationDarkTheme.colors,
       ...PaperDarkTheme.colors,
-      background: '#333',
-      text: '#fff',
-    }
-  }
+      background: "#333",
+      text: "#fff",
+    },
+  };
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
@@ -65,12 +80,13 @@ export default function Navigation() {
     //     </Drawer.Navigator>
     //   </NavigationContainer>
     // </PaperProvider>
-    
 
-    <PaperProvider  theme={theme}>
+    <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+          <Drawer.Navigator
+            drawerContent={(props) => <DrawerContent {...props} />}
+          >
             <Drawer.Screen name="Basica" component={HomeScreen} />
             <Drawer.Screen name="Cientifica" component={Cientifica} />
             <Drawer.Screen name="Grafica" component={Grafica} />
@@ -92,12 +108,6 @@ export default function Navigation() {
         </NavigationContainer>
       </AuthContext.Provider>
     </PaperProvider>
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Basica" component={HomeScreen} />    
-        <Drawer.Screen name="Cientifica" component={Cientifica} />
-      </Drawer.Navigator>
-    </NavigationContainer>
   );
 }
 
