@@ -92,6 +92,12 @@ export default function Navigation() {
         </NavigationContainer>
       </AuthContext.Provider>
     </PaperProvider>
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Basica" component={HomeScreen} />    
+        <Drawer.Screen name="Cientifica" component={Cientifica} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
