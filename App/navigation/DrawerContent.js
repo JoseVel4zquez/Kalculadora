@@ -43,12 +43,12 @@ export function DrawerContent(props){
                             />
                             <View style={{marginLeft: 15, flexDirection: 'column'}}>
                                 <Title style={styles.title}>KS-TECH</Title>
-                                <Caption style={styles.caption}>Una innovacion no solo a la tecnologia sino al tiempo</Caption>
+                                <Caption style={styles.caption}>Lo mejor para ti</Caption>
                             </View>
                         </View>
                     </View>
                     <Drawer.Section style={styles.drawerSection}>
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <AntDesign
                                     name='calculator'
@@ -58,7 +58,7 @@ export function DrawerContent(props){
                             )}
                             label="Basica"
                             onPress={() => {props.navigation.navigate('Basica')}}
-                        />
+                        /> */}
 
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -72,7 +72,7 @@ export function DrawerContent(props){
                             onPress={() => {props.navigation.navigate('Cientifica')}}
                         />
 
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <SimpleLineIcons
                                     name='graph'
@@ -82,8 +82,8 @@ export function DrawerContent(props){
                             )}
                             label="Grafica"
                             onPress={() => {props.navigation.navigate('Grafica')}}
-                        />
-                        <DrawerItem 
+                        /> */}
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <AntDesign
                                     name='calendar'
@@ -93,7 +93,7 @@ export function DrawerContent(props){
                             )}
                             label="Calculo de fecha"
                             onPress={() => {props.navigation.navigate('Fechas')}}
-                        />
+                        /> */}
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <FontAwesome5
@@ -204,7 +204,7 @@ export function DrawerContent(props){
                             label="Potencia"
                             onPress={() => {props.navigation.navigate('Potencia')}}
                         />
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <AntDesign
                                     name='database'
@@ -214,7 +214,7 @@ export function DrawerContent(props){
                             )}
                             label="Datos"
                             onPress={() => {props.navigation.navigate('Datos')}}
-                        />
+                        /> */}
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <FontAwesome
