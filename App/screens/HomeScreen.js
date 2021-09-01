@@ -52,9 +52,9 @@ export default function HomeScreen({navigation}) {
       <View style={styles.buttons}>
         {buttons.map((button) => 
           button === '=' ?
-          <TouchableOpacity key={button} style={[styles.button, {backgroundColor: 'lightblue'}]}><Text style={{color: colors.text}}>{button}</Text></TouchableOpacity>
+          <TouchableOpacity key={button} style={[styles.button, {backgroundColor: 'lightblue'}]}><Text>{button}</Text></TouchableOpacity>
           :
-          <TouchableOpacity key={button} style={[styles.button, {backgroundColor: '#ededed'}]}><Text style={{color: colors.text}}>{button}</Text></TouchableOpacity>
+          <TouchableOpacity key={button} style={[styles.button, {backgroundColor: '#ededed'}]}><Text>{button}</Text></TouchableOpacity>
         )}
       </View>
     </View>
