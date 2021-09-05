@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function Cientifica() {
   const [darkMode, setDarkMode] = useState(false);
@@ -70,6 +71,7 @@ export default function Cientifica() {
   ];
   const [currentNumber, setCurrentNumber] = useState("");
   const [lastNumber, setLastNumber] = useState("");
+  const [CalculadoraOrientation, setCalculadoraOrientation] = useState(0);
   function handleInput(buttonPressed) {
     console.log(buttonPressed);
     if (
@@ -164,6 +166,32 @@ export default function Cientifica() {
       fontSize: 20,
     },
   });
+
+  useEffect(() => {
+    CalculadoraOrientationS();
+  }, [CalculadoraOrientation]);
+
+  const CalculadoraOrientationS = async () => {
+    ScreenOrientation.unlockAsync();
+    const Co = await ScreenOrientation.getPlatformOrientationLockAsync()
+      .then((response) => {
+        console.log(response);
+        switch (response.screenOrientationArrayIOS) {
+          case 1:
+            setCalculadoraOrientation("PORTRAIT_UP");
+            break;
+          case 3:
+            setCalculadoraOrientation("LANDSCAPE_LEFT");
+            break;
+          case 4:
+            setCalculadoraOrientation("LANDSCAPE_RIGHT");
+            break;
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.result}>
