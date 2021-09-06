@@ -22,18 +22,6 @@ export default function Cientifica() {
     }
   }, [theme]);
   const buttons = [
-    "cos",
-    "sen",
-    "tan",
-    "√",
-    "x²",
-    "1/x",
-    "|x|",
-    "n!",
-    "e",
-    "π",
-    "log",
-    "ln",
     "AC",
     "DEL",
     "%",
@@ -79,7 +67,8 @@ export default function Cientifica() {
       (buttonPressed === "-") |
       (buttonPressed === "*") |
       (buttonPressed == "/") |
-      (buttonPressed === "+/-")
+      (buttonPressed === "+/-") |
+      (buttonPressed === "%")
     ) {
       setCurrentNumber(currentNumber + " " + buttonPressed + " ");
       return;
@@ -106,6 +95,9 @@ export default function Cientifica() {
           break;
         case "+/-":
           setCurrentNumber((firstNumber * -1).toString());
+          break;
+        case "%":
+          setCurrentNumber((firstNumber / 100).toString());
       }
     }
     switch (buttonPressed) {
@@ -169,28 +161,24 @@ export default function Cientifica() {
 
   useEffect(() => {
     CalculadoraOrientationS();
+    ScreenOrientation.addOrientationChangeListener((event) => {
+      const { orientationInfo } = event;
+      const { orientation } = orientationInfo;
+      console.log(orientation);
+      setCalculadoraOrientation(orientation);
+    });
+  }, [CalculadoraOrientation]);
+  useEffect(() => {
+    console.log(CalculadoraOrientation);
+    if (CalculadoraOrientation === 4) {
+      buttons.concat(cientifico);
+    } else if (CalculadoraOrientation === 3) {
+      buttons.concat(cientifico);
+    }
   }, [CalculadoraOrientation]);
 
   const CalculadoraOrientationS = async () => {
     ScreenOrientation.unlockAsync();
-    const Co = await ScreenOrientation.getPlatformOrientationLockAsync()
-      .then((response) => {
-        console.log(response);
-        switch (response.screenOrientationArrayIOS) {
-          case 1:
-            setCalculadoraOrientation("PORTRAIT_UP");
-            break;
-          case 3:
-            setCalculadoraOrientation("LANDSCAPE_LEFT");
-            break;
-          case 4:
-            setCalculadoraOrientation("LANDSCAPE_RIGHT");
-            break;
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
   return (
     <View style={styles.container}>

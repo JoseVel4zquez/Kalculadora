@@ -87,8 +87,7 @@ export default function Navigation() {
           <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}
           >
-            <Drawer.Screen name="Basica" component={HomeScreen} />
-            <Drawer.Screen name="Cientifica" component={Cientifica} />
+            <Drawer.Screen name="Calculadora" component={Cientifica} />
             <Drawer.Screen name="Grafica" component={Grafica} />
             <Drawer.Screen name="Fechas" component={CalculoFecha} />
             <Drawer.Screen name="Divisas" component={Divisas} />
