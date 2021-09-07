@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,33 @@ import {
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Cientifica() {
   const [darkMode, setDarkMode] = useState(false);
+  const [ciencia, setCiencia] = useState([
+    "AC",
+    "DEL",
+    "%",
+    "/",
+    7,
+    8,
+    9,
+    "*",
+    4,
+    5,
+    6,
+    "-",
+    3,
+    2,
+    1,
+    "+",
+    0,
+    ".",
+    "+/-",
+    "=",
+  ]);
+  ScreenOrientation.unlockAsync();
   const theme = useTheme();
 
   useEffect(() => {
@@ -21,6 +45,31 @@ export default function Cientifica() {
       setDarkMode(false);
     }
   }, [theme]);
+
+  useFocusEffect(
+    useCallback(() => {
+      ScreenOrientation.addOrientationChangeListener((event) => {
+        switch (event.orientationInfo.orientation) {
+          case 1:
+            setCiencia(buttons);
+
+            break;
+          case 3:
+            setCiencia(cientifico.concat(buttons));
+
+            break;
+          case 4:
+            setCiencia(cientifico.concat(buttons));
+            break;
+
+          default:
+            setCiencia(buttons);
+            break;
+        }
+      });
+    }, [])
+  );
+
   const buttons = [
     "AC",
     "DEL",
@@ -121,6 +170,7 @@ export default function Cientifica() {
     }
     setCurrentNumber(currentNumber + buttonPressed);
   }
+
   const styles = StyleSheet.create({
     result: {
       backgroundColor: darkMode ? "#282f3b" : "#f5f5f5",
@@ -159,27 +209,6 @@ export default function Cientifica() {
     },
   });
 
-  useEffect(() => {
-    CalculadoraOrientationS();
-    ScreenOrientation.addOrientationChangeListener((event) => {
-      const { orientationInfo } = event;
-      const { orientation } = orientationInfo;
-      console.log(orientation);
-      setCalculadoraOrientation(orientation);
-    });
-  }, [CalculadoraOrientation]);
-  useEffect(() => {
-    console.log(CalculadoraOrientation);
-    if (CalculadoraOrientation === 4) {
-      buttons.concat(cientifico);
-    } else if (CalculadoraOrientation === 3) {
-      buttons.concat(cientifico);
-    }
-  }, [CalculadoraOrientation]);
-
-  const CalculadoraOrientationS = async () => {
-    ScreenOrientation.unlockAsync();
-  };
   return (
     <View style={styles.container}>
       <View style={styles.result}>
@@ -188,7 +217,7 @@ export default function Cientifica() {
       </View>
 
       <View style={styles.buttons}>
-        {buttons.map((button) =>
+        {ciencia.map((button) =>
           button === "=" ? (
             <TouchableOpacity
               key={button}
