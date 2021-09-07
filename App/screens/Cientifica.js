@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,33 @@ import {
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Cientifica() {
   const [darkMode, setDarkMode] = useState(false);
+  const [ciencia, setCiencia] = useState([
+    "AC",
+    "DEL",
+    "%",
+    "/",
+    7,
+    8,
+    9,
+    "*",
+    4,
+    5,
+    6,
+    "-",
+    3,
+    2,
+    1,
+    "+",
+    0,
+    ".",
+    "+/-",
+    "=",
+  ]);
+  ScreenOrientation.unlockAsync();
   const theme = useTheme();
 
   useEffect(() => {
@@ -21,19 +45,32 @@ export default function Cientifica() {
       setDarkMode(false);
     }
   }, [theme]);
+
+  useFocusEffect(
+    useCallback(() => {
+      ScreenOrientation.addOrientationChangeListener((event) => {
+        switch (event.orientationInfo.orientation) {
+          case 1:
+            setCiencia(buttons);
+
+            break;
+          case 3:
+            setCiencia(cientifico.concat(buttons));
+
+            break;
+          case 4:
+            setCiencia(cientifico.concat(buttons));
+            break;
+
+          default:
+            setCiencia(buttons);
+            break;
+        }
+      });
+    }, [])
+  );
+
   const buttons = [
-    "cos",
-    "sen",
-    "tan",
-    "√",
-    "x²",
-    "1/x",
-    "|x|",
-    "n!",
-    "e",
-    "π",
-    "log",
-    "ln",
     "AC",
     "DEL",
     "%",
@@ -79,7 +116,8 @@ export default function Cientifica() {
       (buttonPressed === "-") |
       (buttonPressed === "*") |
       (buttonPressed == "/") |
-      (buttonPressed === "+/-")
+      (buttonPressed === "+/-") |
+      (buttonPressed === "%")
     ) {
       setCurrentNumber(currentNumber + " " + buttonPressed + " ");
       return;
@@ -106,6 +144,9 @@ export default function Cientifica() {
           break;
         case "+/-":
           setCurrentNumber((firstNumber * -1).toString());
+          break;
+        case "%":
+          setCurrentNumber((firstNumber / 100).toString());
       }
     }
     switch (buttonPressed) {
@@ -129,6 +170,7 @@ export default function Cientifica() {
     }
     setCurrentNumber(currentNumber + buttonPressed);
   }
+
   const styles = StyleSheet.create({
     result: {
       backgroundColor: darkMode ? "#282f3b" : "#f5f5f5",
@@ -167,31 +209,6 @@ export default function Cientifica() {
     },
   });
 
-  useEffect(() => {
-    CalculadoraOrientationS();
-  }, [CalculadoraOrientation]);
-
-  const CalculadoraOrientationS = async () => {
-    ScreenOrientation.unlockAsync();
-    const Co = await ScreenOrientation.getPlatformOrientationLockAsync()
-      .then((response) => {
-        console.log(response);
-        switch (response.screenOrientationArrayIOS) {
-          case 1:
-            setCalculadoraOrientation("PORTRAIT_UP");
-            break;
-          case 3:
-            setCalculadoraOrientation("LANDSCAPE_LEFT");
-            break;
-          case 4:
-            setCalculadoraOrientation("LANDSCAPE_RIGHT");
-            break;
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
   return (
     <View style={styles.container}>
       <View style={styles.result}>
@@ -200,7 +217,7 @@ export default function Cientifica() {
       </View>
 
       <View style={styles.buttons}>
-        {buttons.map((button) =>
+        {ciencia.map((button) =>
           button === "=" ? (
             <TouchableOpacity
               key={button}
