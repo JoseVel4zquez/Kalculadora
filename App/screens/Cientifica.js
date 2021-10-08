@@ -10,8 +10,14 @@ import {
 import { useTheme } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useFocusEffect } from "@react-navigation/native";
+import useOrientation from "../hooks/useOrientation";
+import { ButtonContainer } from "../hooks/buttons";
 
 export default function Cientifica() {
+
+  const orientation = useOrientation();
+
+
   const [darkMode, setDarkMode] = useState(false);
   const [ciencia, setCiencia] = useState([
     "AC",
@@ -191,8 +197,10 @@ export default function Cientifica() {
       alignSelf: "flex-end",
     },
     buttons: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      top: cientifico ? '-7%' : '-70%',
+      width: cientifico ? '100%' : '22%',
     },
     button: {
       borderColor: darkMode ? "#3f4d5b" : "#e5e5e5",
@@ -217,6 +225,7 @@ export default function Cientifica() {
       </View>
 
       <View style={styles.buttons}>
+      {/* <ButtonContainer width={orientation.width / 3} isPortriat={orientation.isPortrait}> */}
         {ciencia.map((button) =>
           button === "=" ? (
             <TouchableOpacity
@@ -252,6 +261,7 @@ export default function Cientifica() {
             </TouchableOpacity>
           )
         )}
+      {/* </ButtonContainer> */}
       </View>
     </View>
   );
