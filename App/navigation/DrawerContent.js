@@ -60,7 +60,7 @@ export function DrawerContent(props){
                             onPress={() => {props.navigation.navigate('Basica')}}
                         /> */}
 
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <MaterialIcons
                                     name='science'
@@ -70,7 +70,7 @@ export function DrawerContent(props){
                             )}
                             label="Cientifica"
                             onPress={() => {props.navigation.navigate('Cientifica')}}
-                        />
+                        /> */}
 
                         {/* <DrawerItem 
                             icon={({color, size}) => (
